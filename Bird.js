@@ -18,6 +18,21 @@ function Bird(x,y,radius) {
         this.x =this.x
         this.y =this.y
     }
+    this.crashWith = function(otherobj) {
+        var myleft = this.x-(this.radius);
+        var myright = this.x + (this.radius);
+        var mytop = this.y-(this.radius);
+        var mybottom = this.y + (this.radius);
+        var otherleft = otherobj.x;
+        var otherright = otherobj.x + (otherobj.width);
+        var othertop = otherobj.y;
+        var otherbottom = otherobj.y + (otherobj.height);
+        var crash = true;
+        if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+            crash = false;
+        }
+        return crash;
+    }
  
 
 }

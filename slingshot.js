@@ -118,7 +118,7 @@
 
 
 
-setInterval(function () {
+slingInterval=setInterval(function () {
 
     if (!bird_grabbed && flung) {
      
@@ -155,7 +155,6 @@ setInterval(function () {
         }
 
         vel_y += g;
-        console.log(bird)
         updateGameArea()
     }
 
