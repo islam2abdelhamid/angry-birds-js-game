@@ -53,9 +53,25 @@
                          bird.y = y - (bird.radius) 
                          bird_x = bird.x
                          bird_y =bird.y
-                         console.log(bird_y)
-                         updateGameArea(bird_x,bird_y,bird.radius);
+                         updateGameArea();
                     }            
+        });
+    
+    }, false);
+
+    elem.addEventListener('mouseup', function(event) {
+        var x = event.pageX - elemLeft,
+            y = event.pageY - elemTop;
+        // Collision detection between clicked offset and element.
+        elements.forEach(function(element) {
+            if (bird_grabbed) {
+                vel_x = (cat_x - parseInt(bird_x)) / 10;
+                vel_y = (cat_y - parseInt(bird_y)) / 10;
+                flung = true,
+                right_fling = vel_x >= 0
+               
+            }
+            bird_grabbed = false         
         });
     
     }, false);
@@ -85,39 +101,39 @@
 
 // }
 
-body.onmouseup = function (e) {
+// body.onmouseup = function (e) {
 
-    if (bird_grabbed) {
+//     if (bird_grabbed) {
 
 
-        vel_x = (cat_x - parseInt(bird_x)) / 10;
-        vel_y = (cat_y - parseInt(bird_y)) / 10;
-        flung = true,
-            right_fling = vel_x >= 0
+//         vel_x = (cat_x - parseInt(bird_x)) / 10;
+//         vel_y = (cat_y - parseInt(bird_y)) / 10;
+//         flung = true,
+//             right_fling = vel_x >= 0
 
-    }
-    bird_grabbed = false
+//     }
+//     bird_grabbed = false
 
-}
+// }
 
 
 
 setInterval(function () {
 
     if (!bird_grabbed && flung) {
+     
+        bird.x += vel_x;
+     
+        if (bird.x < 0)
+            bird.x = 0;
 
-        bird_x += vel_x;
+        if (bird.x> canvas.width - bird.radius*2)
+            bird.x = canvas.width - bird.radius*2;
 
-        if (bird_x < 0)
-            bird_x = 0;
+        bird.y += vel_y;
 
-        if (bird_x > body.clientWidth - bird.clientWidth)
-            bird_x = body.clientWidth - bird.clientWidth;
-
-        bird_y += vel_y;
-
-        if (bird_y > body.clientHeight - bird.clientHeight) {
-            bird_y = body.clientHeight - bird.clientHeight;
+        if (bird.y > canvas.height - bird.radius*2) {
+            bird.y = canvas.height - bird.radius*2;
             vel_x -= .1 * (!right_fling ? -1 : 1);
         }
 
@@ -139,18 +155,19 @@ setInterval(function () {
         }
 
         vel_y += g;
+        console.log(bird)
+        updateGameArea()
     }
 
-    if (bird_x > cage_x && bird_x < cage_x + cage.offsetWidth && bird_y > cage_y && bird_y < cage_y + cage.offsetHeight) {
+    if (bird.x > cage_x && bird.x < cage_x + cage.raduis*2 && bird.y > cage.y && bird.y < cage.y+ cage.radius) {
         cage.style.backgroundColor = "tomato"
         vel_x = -vel_x*2
         vel_y = -vel_y/2
       
-     // cage.classList.add("shake");
-      setTimeout( function(){cage.style.display = "none";}, 800);
+    //  // cage.classList.add("shake");
+    //   setTimeout( function(){cage.style.display = "none";}, 800);
     }
-    bird.x = bird_x + "px"
-    bird.y = bird_y + "px"
-
+    
+    
 }, 15);
 

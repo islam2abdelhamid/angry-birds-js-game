@@ -6,4 +6,9 @@ function Component(x,y,height,width,color){
     ctx=myGameArea.context;
     ctx.fillStyle=color;
     ctx.fillRect(this.x,this.y,this.width,this.height);
+    this.update = function() {
+        ctx = myGameArea.context;
+        ctx.fillStyle = color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
 }
