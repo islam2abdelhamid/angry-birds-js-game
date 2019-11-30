@@ -76,7 +76,7 @@ obstacle.prototype.create_obstcale=function(){
 }
 
 //testing creating new obstacle 
-var obs = new obstacle(400,200,300,200,"ss.jpg");
+var obs = new obstacle(400,200,50,50,"assets/media/imgs/objects/obstcals/wood.png");
 var body = document.getElementsByTagName("body")[0];
 obs.set_parent_element(body);
 obs.create_obstcale();
