@@ -1,14 +1,14 @@
-let ground,bird, enemy, height=670, width=880, box,cage, hit=0;;
+let ground,bird, enemy, height=670, width=880, box,cage, hit=0;
 
   function startGame() {
       myGameArea.start();
       ground=new Component(0,height-20,20,width,"red");
-      box=new Component(350,300,20,80,"black");
-      enemy=new Component(370,250,50,70,"pig.jpg","image");
-      boxTwo=new Component(500,300,30,80,"black");
-      enemyTwo=new Component(520,250,50,70,"pig.jpg","image");
+      box=new Box(350,300,20,80,"brick.png","image");
+      enemy=new Enemy(370,250,50,70,"pig.jpg","image");
+      boxTwo=new Box(500,300,30,80,"brick.png","image");
+      enemyTwo=new Enemy(520,250,50,70,"pig.jpg","image");
       bird=new Bird(75,380,40,80,"red.png","image");
-      cage=new Bird(80,380,150);
+      cage=new Component(80,380,150,0,"circle");
       slingshot=new Throw(75,380);
     } 
   function updateGameArea() {
@@ -22,18 +22,17 @@ let ground,bird, enemy, height=670, width=880, box,cage, hit=0;;
     }
     else {
       myGameArea.clear();
-      box.update();
-      ground.update();
+      box.draw();
+      ground.draw();
       if(hit==0){
-        enemy.update();
-        enemyTwo.update();
+        enemy.draw();
+        enemyTwo.draw();
       }
-      enemyTwo.update()
-      boxTwo.update()
-      bird.newPos();    
-      bird.update();
+      enemyTwo.draw()
+      boxTwo.draw()
+      //bird.newPos();    
+      bird.draw();
     }
-     
   }
   var myGameArea = {
       canvas : document.createElement("canvas"),
@@ -66,8 +65,10 @@ let ground,bird, enemy, height=670, width=880, box,cage, hit=0;;
     }, false);
 
     elem.addEventListener('mousemove', function(event) {
-      if (bird.bird_grabbed)
-      bird.move(event,cage);
+      if (bird.bird_grabbed){
+        bird.move(event,cage);
+      }
+    
     }, false);
 
     elem.addEventListener('mouseup', function(event) {

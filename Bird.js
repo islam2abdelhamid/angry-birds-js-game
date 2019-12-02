@@ -1,32 +1,19 @@
-function Bird(x,y,height,width,color){
+function Bird(x,y,height,width,src,type){
+    Component.call(this,x,y,height,width,src,type)
     this.bird_grabbed = false;
     this.flung = false;
     this.right_fling = false;
     this.g = .15;
     this.wind_resistance = .0001;
     this.vel_x = 0;
-    this.vel_y = 0;
-    this.image = new Image();
-    this.image.src= color
-    this.width=width;
-    this.height=height;
-    this.x=x;
-    this.y=y;   
+    this.vel_y = 0; 
     this.cat_x = this.x;
     this.cat_y = this.y;
     this.radius=height;
 }
-Bird.prototype.update=function(){
-    ctx = myGameArea.context;
-    ctx.drawImage(this.image,
-        this.x,
-        this.y,
-        this.width, this.height);   
-}
-Bird.prototype.newPos = function(){
-    this.x =this.x
-    this.y =this.y
-}
+Bird.prototype = Object.create(Component.prototype);
+Bird.prototype.constructor = Bird;
+
 Bird.prototype.grabbed=function(event){
     var x = event.pageX - elemLeft,
     y = event.pageY - elemTop;
@@ -42,6 +29,7 @@ Bird.prototype.move=function (event,cage) {
     var x = event.pageX - elemLeft,
       y = event.pageY - elemTop;
      if (this.bird_grabbed && x < cage.x+cage.radius && y <cage.y+cage.radius&&y>cage.y-80) {
+         console.log("hii")
                  this.x = x - (this.width)
                  this.y = y - (this.height)
                  slingshot.drawing(this.x,this.y)
