@@ -1,23 +1,18 @@
-let ground;
-let height=670;
-let width=880;
-let box;
-var bird;
-let enemy;
-let cage;
-let hit=0;
+let ground,bird, enemy, height=670, width=880, box,cage, hit=0;;
 
   function startGame() {
+
     myGameArea.start();
       ground=new Component(0,height-20,20,width,"red");
       box=new Component(350,300,20,80,"black");
-      enemy=new Component(370,250,50,70,"pig.jpg","image")
+      enemy=new Component(370,250,50,70,"pig.jpg","image");
       boxTwo=new Component(500,300,30,80,"black");
-      enemyTwo=new Component(520,250,50,70,"pig.jpg","image")
-      bird=new Bird(75,380,40,80,"red.png","image")
-      cage=new Bird(80,380,120)
+      enemyTwo=new Component(520,250,50,70,"pig.jpg","image");
+      bird=new Bird(75,380,40,80,"red.png","image");
+      cage=new Bird(80,380,150);
       slingshot=new Throw(75,380);
     }
+    
   function updateGameArea() {
     if (bird.crashWith(box)) {
         myGameArea.stop();
@@ -55,15 +50,52 @@ let hit=0;
       },
       clear : function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    },
-     stop : function() {
-      clearInterval(this.interval);
-      vel_x = -vel_x*2
-      vel_y = -vel_y/2
-  },
-  
-    
+      },
+      stop : function() {
+        clearInterval(this.interval);
+        clearInterval(slingInterval)
+        bird.vel_x = -bird.vel_x*2
+        bird.vel_y = -bird.vel_y/2
+      },
     }
-  
     startGame()
+    var elem = myGameArea.canvas,
+    elemLeft = elem.offsetLeft,
+    elemTop = elem.offsetTop,
+    context = elem.getContext('2d');
+    var canvas=document.getElementsByTagName("canvas")[0];
+    canvas.addEventListener('click', function() { }, false);
+    elem.addEventListener('click', function(event){
+      bird.grabbed(event);
+    }, false);
+    elem.addEventListener('mousemove', function(event) {
+      if (bird.bird_grabbed)
+      bird.move(event,cage);
+    }, false);
+    elem.addEventListener('mouseup', function(event) {
+      bird.released(event)
+      
+    }, false);
+  
+    if(bird.y==590){
+      console.log("jooo")
+     clearInterval(slingInterval)
+    
+   }
+    slingInterval=setInterval(function () {
+      
+      if (!bird.bird_grabbed && bird.flung) {
+          bird.fired()
+        
+      }
+      console.log("hiii")
 
+     
+    
+     
+  }, 15);
+  if(bird.y==590){
+     console.log("jooo")
+    clearInterval(slingInterval)
+   
+  }
