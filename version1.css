@@ -1,0 +1,47 @@
+body{
+	background-image: url("1111000.jpg");
+	background-size: cover;
+
+}
+.option{
+	width: 20%;
+	height: 200px;
+	text-align: center;
+	color: white;
+	font-size:20px ;
+	margin: auto;
+	margin-top: 15%;
+
+}
+/* #play{
+	width:83%;
+	color: black;
+} */
+.list{
+	list-style-type: none;
+
+}
+.button{
+  background-color: orange;
+  width:200px;
+  padding: 10px;
+  display: block;
+}
+.button:hover{
+	color: red;
+
+	}
+	ul li ul li{
+		display: none;
+
+	}
+	/* .play{
+		list-style-type: none;
+		display:inline;
+	}
+	ul li:onmouseclick ul li {
+		display: inline;
+		background-image:url(1111006.jpg);
+		text-orientation: fixed;
+
+	} */
