@@ -1,4 +1,4 @@
-function Pig(x, y, pigImg){
+function Pig(x, y, PigImg){
 	this.X = x;
 	this.Y = y;
 	
