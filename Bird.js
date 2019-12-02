@@ -1,57 +1,31 @@
-function Bird(x,y,height,width,color,type){
+function Bird(x,y,height,width,color){
     this.bird_grabbed = false;
     this.flung = false;
     this.right_fling = false;
     this.g = .15;
     this.wind_resistance = .0001;
-    this.vel_x = 0,
-    this.vel_y = 0
-
-    if(type=="image"){
-        this.image = new Image();
-       this.image.src= color
-    }
+    this.vel_x = 0;
+    this.vel_y = 0;
+    this.image = new Image();
+    this.image.src= color
     this.width=width;
     this.height=height;
     this.x=x;
     this.y=y;   
-    this.cat_x = this.x,
-    this.cat_y = this.y,
+    this.cat_x = this.x;
+    this.cat_y = this.y;
     this.radius=height;
-    
-    this.update = function() {
-        ctx = myGameArea.context;
-        if(type=="image"){
-            ctx.drawImage(this.image,
-                this.x,
-                this.y,
-                this.width, this.height);
-         }
-        else {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-            ctx.stroke();
-        }
-    }
-    this.newPos = function() {
-            this.x =this.x
-            this.y =this.y
-       }
-    this.crashWith = function(otherobj) {
-                var myleft = this.x-(this.radius);
-                var myright = this.x + (this.radius);
-                var mytop = this.y-(this.radius);
-                var mybottom = this.y + (this.radius);
-                var otherleft = otherobj.x;
-                var otherright = otherobj.x + (otherobj.width);
-                var othertop = otherobj.y;
-                var otherbottom = otherobj.y + (otherobj.height);
-                var crash = true;
-                if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
-                    crash = false;
-                }
-                return crash;
-            }
+}
+Bird.prototype.update=function(){
+    ctx = myGameArea.context;
+    ctx.drawImage(this.image,
+        this.x,
+        this.y,
+        this.width, this.height);   
+}
+Bird.prototype.newPos = function(){
+    this.x =this.x
+    this.y =this.y
 }
 Bird.prototype.grabbed=function(event){
     var x = event.pageX - elemLeft,
@@ -116,5 +90,21 @@ Bird.prototype.fired=function(){
         this.vel_y += this.g;
         updateGameArea()
     
+
+}
+Bird.prototype.crashWith = function(otherobj){
+    var myleft = this.x-(this.radius);
+    var myright = this.x + (this.radius);
+    var mytop = this.y-(this.radius);
+    var mybottom = this.y + (this.radius);
+    var otherleft = otherobj.x;
+    var otherright = otherobj.x + (otherobj.width);
+    var othertop = otherobj.y;
+    var otherbottom = otherobj.y + (otherobj.height);
+    var crash = true;
+    if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+        crash = false;
+    }
+    return crash;
 
 }
