@@ -32,7 +32,7 @@ Bird.prototype.move=function (event,cage) {
          console.log("hii")
                  this.x = x - (this.width)
                  this.y = y - (this.height)
-                 slingshot.drawing(this.x,this.y)
+                 slingshot.drawing(this.x,this.y) 
                  updateGameArea();
               }                
 }

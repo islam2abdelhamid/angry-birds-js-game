@@ -1,127 +1,107 @@
-function Bird() {
-    let birdX,
-        birdY,
-        startX = 200,
-        startY = 400,
-        width = 50,
-        height = 50,
-        createdBird,
-        velX = 0,
-        velY = 0,
-        isFlying = false,
-        isFired = false,
-        isGrabbed = false,
-        ended = false
+function Bird(gameArea, x, y, height, width, src) {
+    Component.call(this, gameArea, x, y, height, width, src)
+    this.velX = 0
+    this.velY = 0
+    this.isFlying = false
+    this.isFired = false
+    this.isGrabbed = false
+    this.ended = false
+    this.defX = x
+    this.defY = y
+    this.activeBird = false
+    this.hunt = false
+}
 
-    this.createBird = function (parent, imgPath) {
-        createdBird = document.createElement("div")
-        createdBird.style.backgroundImage = "url(" + imgPath + ")"
-        createdBird.style.position = "absolute"
-        createdBird.style.backgroundSize = "contain"
-        createdBird.style.top = startY + "px"
-        createdBird.style.left = startX + "px"
-        createdBird.style.width = width + "px"
-        createdBird.style.height = height + "px"
-        parent.appendChild(createdBird)
+Bird.prototype = Object.create(Component.prototype);
+Bird.prototype.constructor = Bird;
+
+Bird.prototype.grabBird = function (mouseEvent) {
+    if (this.isIntersect(mouseEvent) && !this.isFired && this.activeBird) {
+        this.isGrabbed = true
+        this.x = mouseEvent.clientX - (this.width / 1.5)
+        this.y = mouseEvent.clientY - (this.height / 1.5)
     }
+}
 
-    this.getBird = function () {
-        return createdBird
+Bird.prototype.checkBirdSpeedLimit = function (mouseEvent, minX, maxX, minY, maxY) {
+    if (mouseEvent.clientX > minX && mouseEvent.clientX < maxX && mouseEvent.clientY > minY && mouseEvent.clientY < maxY)
+        return true
+    return false
+}
+
+Bird.prototype.setBirdSpeed = function (mouseEvent) {
+    if (this.isGrabbed && this.checkBirdSpeedLimit(mouseEvent, 100, 300, 320, 500)) {
+        this.x = mouseEvent.clientX - (this.width) / 1.5
+        this.y = mouseEvent.clientY - (this.height / 1.5)
     }
+}
 
-    this.grabBird = function (mouseEvent) {
-        isGrabbed = true
-        createdBird.style.left = mouseEvent.clientX - (createdBird.clientWidth / 1.5) + "px";
-        createdBird.style.top = mouseEvent.clientY - (createdBird.clientHeight / 1.5) + "px";
-    }
+Bird.prototype.isIntersect = function (mouseEvent) {
+    return Math.sqrt((mouseEvent.x - this.x) ** 2 + (mouseEvent.y - this.y) ** 2) < this.width;
+}
 
-    this.checkBirdSpeedLimit = function (mouseEvent, minX, maxX, minY, maxY) {
-        if (mouseEvent.clientX > minX && mouseEvent.clientX < maxX && mouseEvent.clientY > minY && mouseEvent.clientY < maxY)
-            return true
-        return false
-    }
+Bird.prototype.fire = function (canvas, windResistance, g, pigs, obstacles) {
 
-    this.setBirdSpeed = function (mouseEvent) {
+    if (this.isGrabbed) {
+        this.isGrabbed = false
+        this.isFired = true
 
-        if (isGrabbed && this.checkBirdSpeedLimit(mouseEvent, 100, 300, 320, 550)) {
-            createdBird.style.left = mouseEvent.clientX - (createdBird.clientWidth) / 1.5 + "px";
-            createdBird.style.top = mouseEvent.clientY - (createdBird.clientHeight / 1.5) + "px";
-            birdX = mouseEvent.clientX - (createdBird.clientWidth / 2);
-            birdY = mouseEvent.clientY - (createdBird.clientHeight / 2);
+        if (this.isFired && !this.isGrabbed) {
+            this.velX = (this.defX - this.x) / 10
+            this.velY = (this.defY - this.y) / 10
+            this.isFlying = this.velX >= 0
+            setInterval(() => {
+                this.x += this.velX;
+                if (this.x < 0)
+                    this.x = 0
+
+                if (this.x > canvas.width - this.width)
+                    this.x = canvas.width - this.width
+                this.y += this.velY
+
+                if (this.y > canvas.height - this.height) {
+                    this.y = canvas.height - this.height
+                    this.velX -= .1 * (!this.isFlying ? -1 : 1)
+                }
+
+                this.velX -= windResistance * (!this.isFlying ? -1 : 1)
+
+                if (this.isFlying) {
+                    if (this.velX < 0)
+                        this.velX = 0
+                } else
+                if (this.velX > 0)
+                    this.velX = 0
+
+                this.velY += g
+
+                this.goThroughEnemies(pigs, obstacles)
+            }, 12)
         }
     }
 
+}
 
-    this.goThroughEnemies = function (arrOfPigs) {
-
-        for (let i = 0; i < arrOfPigs.length; i++)
-            this.checkBirdPigXY(arrOfPigs[i])
-
-    }
-
-    this.checkBirdPigXY = function (pig) {
-
-        if (createdBird.offsetLeft + createdBird.clientWidth > pig.offsetLeft && createdBird.offsetLeft + createdBird.clientWidth < pig.offsetLeft + pig.clientWidth)
-            if (createdBird.offsetTop + createdBird.clientHeight > pig.offsetTop && createdBird.offsetTop + createdBird.clientHeight < pig.offsetTop + pig.clientHeight * 2)
-                pig.style.backgroundColor = "blue"
-
-    }
-
-    this.fireBird = function (body, windResistance, g, arrOfPigs) {
-        isGrabbed = false
-        isFired = true
-        velX = (startX - birdX) / 10
-        velY = (startY - birdY) / 10
-
-        isFlying = velX >= 0;
-        let self = this
-        let checkLoop = setInterval(function () {
-
-            if (!isGrabbed && isFired) {
-
-                birdX += velX;
-
-                if (birdX < 0)
-                    birdX = 0
-
-                if (birdX > body.clientWidth - createdBird.clientWidth)
-                    birdX = body.clientWidth - createdBird.clientWidth
-
-                birdY += velY
-
-                if (birdY > body.clientHeight - createdBird.clientHeight) {
-                    birdY = body.clientHeight - createdBird.clientHeight
-                    velX -= .1 * (!isFlying ? -1 : 1)
-                }
-
-                velX -= windResistance * (!isFlying ? -1 : 1)
-
-                if (isFlying) {
-
-                    if (velX < 0) {
-
-                        velX = 0;
-                    }
-
-                } else
-                if (velX > 0)
-                    velX = 0
-
-                velY += g;
+Bird.prototype.goThroughEnemies = function (pigs, obstacles) {
+    for (let i = 0; i < obstacles.length; i++) {
+        if (this.checkIfTouched(pigs[i])) {
+            if (pigs[i].dead == false) {
+                pigs[i].die()
             }
-            if (velX == 0) {
-                ended = true
-                createdBird.remove()
-                clearInterval(checkLoop)
 
-            }
-            self.goThroughEnemies(arrOfPigs)
-            createdBird.style.left = birdX + "px"
-            createdBird.style.top = birdY + "px"
-        }, 15);
+        } else if (this.checkIfTouched(obstacles[i]))
+            this.velX = 0
 
     }
+}
 
+Bird.prototype.checkIfTouched = function (enemy) {
+    return Math.sqrt((enemy.x - this.x) ** 2 + (enemy.y - this.y) ** 2) < this.width
+}
 
+Bird.prototype.checkIfEnded = function (canvas) {
 
+    if (this.isFired && this.velX == 0 && this.y >= canvas.height - this.height)
+        return true
+    return false
 }

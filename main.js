@@ -10,7 +10,7 @@ let ground,bird, enemy, height=670, width=880, box,cage, hit=0;
       bird=new Bird(75,380,40,80,"red.png","image");
       cage=new Component(80,380,150,0,"circle");
       slingshot=new Throw(75,380);
-    } 
+    }  
   function updateGameArea() {
     if (bird.crashWith(box)) {
         myGameArea.stop();
@@ -28,7 +28,7 @@ let ground,bird, enemy, height=670, width=880, box,cage, hit=0;
         enemy.draw();
         enemyTwo.draw();
       }
-      enemyTwo.draw()
+      enemyTwo.draw() 
       boxTwo.draw()
       //bird.newPos();    
       bird.draw();
