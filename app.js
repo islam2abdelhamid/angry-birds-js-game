@@ -1,9 +1,10 @@
 function importJsFile(path) {
     let imported = document.createElement('script');
     imported.src = path;
-    document.getElementById("app").appendChild(imported);
+    document.getElementById("scripts").appendChild(imported);
 }
 
+importJsFile("assets/js/Level.js")
 importJsFile("assets/js/Component.js")
 importJsFile("assets/js/Bird.js")
 importJsFile("assets/js/Pig.js")
@@ -12,11 +13,11 @@ importJsFile("assets/js/Obstacle.js")
 
 let g = .15, //Gravity
     wind_resistance = .0001
-var sounds={
-    onClickSound:new Audio('assets/media/sounds/Sound Effects - bird 01 flying.mp3'),
-    collisionSound:new Audio('asstes/media/sounds/Sound Effects - bird 01 collision a2_low.mp3'),
-    flyingSound:new Audio('asstes/media/sounds/Sound Effects - bird 01 flying.mp3'),
-    lostSound:new Audio('assets/media/sounds/Sound Effects - level failed piglets a2.mp3')
+var sounds = {
+    clickSound: new Audio('assets/media/sounds/flying.mp3'),
+    hitSound: new Audio('asstes/media/sounds/collision.mp3'),
+    flyingSound: new Audio('asstes/media/sounds/.mp3'),
+    lostSound: new Audio('assets/media/sounds/Sound Effects - level failed piglets a2.mp3')
 
 }
 
@@ -27,128 +28,72 @@ document.onreadystatechange = function () {
         canvas.height = window.innerHeight - 93
 
         let gameArea = canvas.getContext('2d')
+        let myLevel = new Level(1)
 
-        let bird1 = new Bird(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/birds/red.png")
-        let bird2 = new Bird(gameArea, 120, canvas.height - 50, 50, 50, "assets/media/imgs/objects/birds/yellow.png")
-        let bird3 = new Bird(gameArea, 50, canvas.height - 50, 50, 50, "assets/media/imgs/objects/birds/red.png")
-        bird2.draw()
-
-        let birds = [bird1, bird2, bird3]
-
-        let pig1 = new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png")
-        let pig2 = new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png")
-        let pig3 = new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png")
-
-        let pigs = [pig1, pig2, pig3]
-
-        let currentBird = 0
-        birds[currentBird].activeBird = true
-        let obstacle1 = new Obstacle(gameArea, 800, 200, 50, 80, "assets/media/imgs/obstacles/brick_1.png")
-        let obstacle2 = new Obstacle(gameArea, 1200, 250, 50, 80, "assets/media/imgs/obstacles/brick_1.png")
-        let obstacle3 = new Obstacle(gameArea, 600, 300, 50, 80, "assets/media/imgs/obstacles/brick_1.png")
-
-        let obstacles = [obstacle1, obstacle2, obstacle3]
-
-
-        function drawBirds() {
-            for (let i = 0; i < birds.length; i++) {
-                birds[i].draw()
-            }
-
+        let birds_obj = {
+            "bird1": new Bird(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/birds/red.png"),
+            "bird2": new Bird(gameArea, 120, 490, 50, 50, "assets/media/imgs/objects/birds/red.png"),
+            "bird3": new Bird(gameArea, 50, 490, 50, 50, "assets/media/imgs/objects/birds/red.png"),
+            "bird4": new Bird(gameArea, 90, 490, 50, 50, "assets/media/imgs/objects/birds/red.png"),
+            "bird5": new Bird(gameArea, 90, 450, 50, 50, "assets/media/imgs/objects/birds/red.png"),
+            "bird6": new Bird(gameArea, 100, 460, 50, 50, "assets/media/imgs/objects/birds/red.png"),
+            "bird7": new Bird(gameArea, 90, 470, 50, 50, "assets/media/imgs/objects/birds/red.png"),
+            "bird8": new Bird(gameArea, 90, 480, 50, 50, "assets/media/imgs/objects/birds/red.png"),
+        }
+        let pigs_obj = {
+            "pig1": new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png"),
+            "pig2": new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png"),
+            "pig3": new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png"),
+            "pig4": new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png"),
+            "pig5": new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png"),
+            "pig6": new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png"),
+            "pig7": new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png"),
+            "pig8": new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png"),
         }
 
-        function drawEnemies() {
-            for (let i = 0; i < obstacles.length; i++) {
-                pigs[i].x = obstacles[i].x + pigs[i].width / 4 + pigs[i].newX
-                pigs[i].y = obstacles[i].y - pigs[i].height + 2 + pigs[i].newY
-                obstacles[i].draw()
-                pigs[i].draw()
-            }
+        let obstacles_obj = {
+            "obstcale1": new Obstacle(gameArea, 800, 200, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
+            "obstcale2": new Obstacle(gameArea, 1200, 250, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
+            "obstcale3": new Obstacle(gameArea, 600, 300, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
+            "obstcale4": new Obstacle(gameArea, 500, 400, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
+            "obstcale5": new Obstacle(gameArea, 600, 100, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
+            "obstcale6": new Obstacle(gameArea, 850, 350, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
+            "obstcale7": new Obstacle(gameArea, 600, 300, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
+            "obstcale8": new Obstacle(gameArea, 600, 300, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
         }
 
+        myLevel.initLevelComponents(birds_obj, pigs_obj, obstacles_obj)
 
-        drawBirds()
-        drawEnemies()
+        myLevel.drawLevelComponents()
 
 
         canvas.addEventListener("mousedown", function (event) {
-            birds[currentBird].grabBird(event)
-            // animate()
+            myLevel.getActiveBird().grabBird(event)
         })
         canvas.addEventListener("mousemove", function (event) {
-            birds[currentBird].setBirdSpeed(event)
-            // animate()
-
+            myLevel.getActiveBird().setBirdSpeed(event)
         })
         canvas.addEventListener("mouseup", function () {
-            birds[currentBird].fire(canvas, wind_resistance, g, pigs, obstacles)
-
+            myLevel.getActiveBird().fire(canvas, wind_resistance, g, myLevel.pigs, myLevel.obstacles)
         })
 
 
 
-        function countPigs(pigs) {
-            let count_pigs = 0
-            for (let i = 0; i < pigs.length; i++) {
-                if (!pigs[i].dead)
-                    count_pigs++
-            }
 
-            return count_pigs
-        }
-
-
-
-        let anim = true
-
-
-        let checkWin = setInterval(() => {
+        let updateGameArea = setInterval(() => {
             gameArea.clearRect(0, 0, innerWidth, innerHeight)
-            drawBirds()
-            drawEnemies()
-
-            if (countPigs(pigs) && !birds.length) {
-                sounds.lostSound.play();
-                alert("you loose")
-                clearInterval(checkWin)
-            }
-            if (birds[currentBird].ended && birds.length) {
-                birds.splice(currentBird, 1)
-                if (birds.length) {
-                    birds[currentBird].x = birds[currentBird].defX = 200
-                    birds[currentBird].y = birds[currentBird].defY = 300
-                    birds[currentBird].activeBird = true
-                }
+            myLevel.drawLevelComponents()
+            if (!myLevel.birds.length) {
+                clearInterval(updateGameArea);
+                if (myLevel.checkIfWin())
+                    alert("you win")
+                else
+                    alert("you loose")
             }
 
         }, 13)
 
-        function animate() {
-            requestAnimationFrame(animate)
-            gameArea.clearRect(0, 0, innerWidth, innerHeight)
-            drawBirds()
-            drawEnemies()
-
-
-            if (anim != false) {
-
-                if (countPigs(pigs) && !birds.length) {
-                    anim = false
-                    clearInterval(checkWin)
-                }
-                if (birds[currentBird].ended) {
-                    birds.splice(currentBird, 1)
-                    if (birds.length) {
-                        birds[currentBird].x = birds[currentBird].defX = 200
-                        birds[currentBird].y = birds[currentBird].defY = 300
-                        birds[currentBird].activeBird = true
-                    }
-                }
-
-            }
-
-
-        }
+     
 
 
     }

@@ -17,7 +17,7 @@ Bird.prototype.constructor = Bird;
 
 Bird.prototype.grabBird = function (mouseEvent) {
     if (this.isIntersect(mouseEvent) && !this.isFired && this.activeBird) {
-        sounds.onClickSound.play();
+        // sounds.onClickSound.play();
         this.isGrabbed = true
         this.x = mouseEvent.clientX - (this.width / 1.5)
         this.y = mouseEvent.clientY - (this.height / 1.5)
@@ -52,7 +52,7 @@ Bird.prototype.fire = function (canvas, windResistance, g, pigs, obstacles) {
         this.isFired = true
 
         if (this.isFired && !this.isGrabbed) {
-            sounds.flyingSound.play();
+            // sounds.flyingSound.play();
             this.velX = (this.defX - this.x) / 10
             this.velY = (this.defY - this.y) / 10
             this.isFlying = this.velX >= 0
@@ -82,6 +82,7 @@ Bird.prototype.fire = function (canvas, windResistance, g, pigs, obstacles) {
                 this.velY += g
 
                 this.goThroughEnemies(pigs, obstacles)
+                this.ended = this.checkIfEnded(canvas)
             }, 12)
         }
     }
@@ -96,7 +97,7 @@ Bird.prototype.goThroughEnemies = function (pigs, obstacles) {
             }
 
         } else if (this.checkIfTouched(obstacles[i]))
-            this.velX = 0
+            this.velX = -this.velX*4
 
     }
 }
