@@ -171,8 +171,8 @@ level.prototype.play=function(){
             let an=function animate() {
                 requestAnimationFrame(an)
                 gameArea.clearRect(0, 0, innerWidth, innerHeight)
-                l1.drawBirds()
-                l1.drawEnemies()
+                level_1.drawBirds()
+                level_1.drawEnemies()
             
             }
             //this.animate(gameArea,innerWidth,innerHeight);
@@ -184,8 +184,20 @@ level.prototype.play=function(){
 
 ////////////////////////////////////////////////////////////////////////////
 
-// creating a new level of the game 
+// creating a new levels of the game 
 
-let l1=new level(2,6);//two birds and six pigs
+let level_1=new level(3,3);//three birds and three pigs
 
-l1.play()
+let level_2=new level(5,3);//four birds and four pigs
+let level_3=new level(6,6);//six birds and six pigs
+
+// start the game based on level choosen by the user
+
+let levels=location.search.substring(1);
+alert(levels);
+if (parseInt(levels)==1)
+    level_1.play();
+else if(parseInt(levels)==2)
+    level_2.play();
+else 
+    level_3.play();
