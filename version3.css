@@ -1,0 +1,40 @@
+
+body{
+	background-image: url("1111002.jpg");
+	background-size: cover;
+}
+.option{
+	width: 20%;
+	height: 100px;
+	text-align: center;
+	color: white;
+	font-size:20px ;
+	margin: auto;
+	margin-top: 15%;
+
+}
+.level{
+	color: White;
+	text-shadow: 0px 0px 5px black;
+	text-align: center;
+	font-size: 150%;
+}
+.list{
+	list-style-type: none;
+}
+.button{
+	background-color: crimson;
+	margin-bottom: 10px;
+	width:200px;
+	padding: 10px;
+	display: block;
+	border: none;
+	text-decoration: none;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: all 0.6s ease-in-out;
+}
+.button:hover{
+	color: crimson;
+	background-color: White;
+}

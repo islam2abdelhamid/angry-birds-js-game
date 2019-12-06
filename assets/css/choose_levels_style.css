@@ -1,0 +1,23 @@
+body{
+    
+    background-image: url("../media/imgs/backgrounds/back_img2.jpg");
+    background-size:cover;
+}
+
+div{
+    display: inline;
+    position: absolute;
+    top: 30%;
+    left: 25%;
+}
+.img{
+    display: inline-block;
+    border-radius: 140px;
+    text-align: center;
+    opacity: 0.7;
+}
+
+.img:hover{
+    opacity: 1.0;
+    transform: scaleY(1.2);
+}
