@@ -14,7 +14,7 @@ let g = .15, //Gravity
     wind_resistance = .0001
 
 
-document.onreadystatechange = () => {
+document.onreadystatechange = function () {
     if (document.readyState === 'complete') {
         let canvas = document.getElementById("GameArea")
         canvas.width = window.innerWidth
@@ -23,9 +23,10 @@ document.onreadystatechange = () => {
         let gameArea = canvas.getContext('2d')
 
         let bird1 = new Bird(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/birds/red.png")
-        let bird2 = new Bird(gameArea, 120, 490, 50, 50, "assets/media/imgs/objects/birds/yellow.png")
-        let bird3 = new Bird(gameArea, 50, 490, 50, 50, "assets/media/imgs/objects/birds/red.png")
+        let bird2 = new Bird(gameArea, 120, canvas.height - 50, 50, 50, "assets/media/imgs/objects/birds/yellow.png")
+        let bird3 = new Bird(gameArea, 50, canvas.height - 50, 50, 50, "assets/media/imgs/objects/birds/red.png")
         bird2.draw()
+
         let birds = [bird1, bird2, bird3]
 
         let pig1 = new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png")
@@ -66,11 +67,11 @@ document.onreadystatechange = () => {
 
         canvas.addEventListener("mousedown", function (event) {
             birds[currentBird].grabBird(event)
-            animate()
+            // animate()
         })
         canvas.addEventListener("mousemove", function (event) {
             birds[currentBird].setBirdSpeed(event)
-            animate()
+            // animate()
 
         })
         canvas.addEventListener("mouseup", function () {
@@ -90,8 +91,21 @@ document.onreadystatechange = () => {
             return count_pigs
         }
 
-        let checkWin = setInterval(function () {
-            if (birds[currentBird].checkIfEnded(canvas) && currentBird < birds.length) {
+
+
+        let anim = true
+
+
+        let checkWin =setInterval(() => {
+            gameArea.clearRect(0, 0, innerWidth, innerHeight)
+            drawBirds()
+            drawEnemies()
+
+            if (countPigs(pigs) && !birds.length) {
+                alert("you loose")
+                clearInterval(checkWin)
+            }
+            if (birds[currentBird].ended && birds.length) {
                 birds.splice(currentBird, 1)
                 if (birds.length) {
                     birds[currentBird].x = birds[currentBird].defX = 200
@@ -100,17 +114,32 @@ document.onreadystatechange = () => {
                 }
             }
 
-            if (countPigs(pigs) && birds.length == 0) {
-                alert("you loose")
-                clearInterval(checkWin)
-            }
-        }, 500);
+        }, 13)
 
         function animate() {
             requestAnimationFrame(animate)
             gameArea.clearRect(0, 0, innerWidth, innerHeight)
             drawBirds()
             drawEnemies()
+
+
+            if (anim != false) {
+
+                if (countPigs(pigs) && !birds.length) {
+                    anim = false
+                    clearInterval(checkWin)
+                }
+                if (birds[currentBird].ended) {
+                    birds.splice(currentBird, 1)
+                    if (birds.length) {
+                        birds[currentBird].x = birds[currentBird].defX = 200
+                        birds[currentBird].y = birds[currentBird].defY = 300
+                        birds[currentBird].activeBird = true
+                    }
+                }
+
+            }
+
 
         }
 

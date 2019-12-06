@@ -18,9 +18,7 @@ Pig.prototype.die = function () {
 		setInterval(function () {
 			self.newY += self.height
 		}, 50)
-	}, 500);
-
-	
+	}, 500)
 
 
 }
