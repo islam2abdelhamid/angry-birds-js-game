@@ -21,7 +21,13 @@ setTimeout( function(){
 }, 1000 );
 
 setTimeout(function(){
+    let LoadingDiv = document.getElementById("loading");
+    let layover = document.getElementById("layover");
+    let int = document.getElementById("int");
     let controls = document.getElementById("controls");
+    LoadingDiv.style.display = "none";
+    layover.style.display = "none";
+    int.style.display = "none";
     controls.style.display = "block";
     controls.classList.add("fadein");
 }, 5000);

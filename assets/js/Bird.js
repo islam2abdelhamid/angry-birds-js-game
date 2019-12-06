@@ -17,7 +17,6 @@ Bird.prototype.constructor = Bird;
 
 Bird.prototype.grabBird = function (mouseEvent) {
     if (this.isIntersect(mouseEvent) && !this.isFired && this.activeBird) {
-        sounds.onClickSound.play();
         this.isGrabbed = true
         this.x = mouseEvent.clientX - (this.width / 1.5)
         this.y = mouseEvent.clientY - (this.height / 1.5)
@@ -25,11 +24,8 @@ Bird.prototype.grabBird = function (mouseEvent) {
 }
 
 Bird.prototype.checkBirdSpeedLimit = function (mouseEvent, minX, maxX, minY, maxY) {
-    if (mouseEvent.clientX > minX && mouseEvent.clientX < maxX && mouseEvent.clientY > minY && mouseEvent.clientY < maxY){
-      
+    if (mouseEvent.clientX > minX && mouseEvent.clientX < maxX && mouseEvent.clientY > minY && mouseEvent.clientY < maxY)
         return true
-    }
-        
     return false
 }
 
@@ -37,7 +33,6 @@ Bird.prototype.setBirdSpeed = function (mouseEvent) {
     if (this.isGrabbed && this.checkBirdSpeedLimit(mouseEvent, 100, 300, 320, 500)) {
         this.x = mouseEvent.clientX - (this.width) / 1.5
         this.y = mouseEvent.clientY - (this.height / 1.5)
-       
     }
 }
 
@@ -52,7 +47,6 @@ Bird.prototype.fire = function (canvas, windResistance, g, pigs, obstacles) {
         this.isFired = true
 
         if (this.isFired && !this.isGrabbed) {
-            sounds.flyingSound.play();
             this.velX = (this.defX - this.x) / 10
             this.velY = (this.defY - this.y) / 10
             this.isFlying = this.velX >= 0
