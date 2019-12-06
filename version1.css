@@ -22,14 +22,21 @@ body{
 
 }
 .button{
+	text-decoration: none;
+	text-decoration-color: black;
   background-color: orange;
   width:200px;
   padding: 10px;
   display: block;
+	border: none;
+	border-top: 10px;
+	border-bottom: 10px;
+	border-style: dotted;
+  border-radius: 20px;
 }
 .button:hover{
 	color: red;
-
+  background-color: black;
 	}
 	ul li ul li{
 		display: none;
