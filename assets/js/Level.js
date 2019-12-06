@@ -4,7 +4,7 @@ let Level = function (level_num, birds, pigs, obstacles) {
     this.started = false
     switch (level_num) {
         case 1:
-            this.num_of_pigs = 3;
+            this.num_of_pigs = 1;
             this.num_of_birds = 3;
             break;
         case 2:

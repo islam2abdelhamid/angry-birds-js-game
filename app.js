@@ -14,10 +14,11 @@ importJsFile("assets/js/Obstacle.js")
 let g = .15, //Gravity
     wind_resistance = .0001
 var sounds = {
-    clickSound: new Audio('assets/media/sounds/flying.mp3'),
-    hitSound: new Audio('asstes/media/sounds/collision.mp3'),
-    flyingSound: new Audio('asstes/media/sounds/.mp3'),
-    lostSound: new Audio('assets/media/sounds/Sound Effects - level failed piglets a2.mp3')
+    startSound: new Audio('assets/media/sounds/start.mp3'),
+    clickSound: new Audio('assets/media/sounds/select.mp3'),
+    firedSound: new Audio('assets/media/sounds/fire.mp3'),
+    failedSound: new Audio('assets/media/sounds/failed.mp3'),
+    winSound: new Audio('assets/media/sounds/win.mp3'),
 
 }
 
@@ -26,7 +27,7 @@ document.onreadystatechange = function () {
         let canvas = document.getElementById("GameArea")
         canvas.width = window.innerWidth
         canvas.height = window.innerHeight - 93
-
+        sounds.startSound.play()
         let tryAgainBtn = document.getElementById("tryAgain")
         let nextLevelBtn = document.getElementById("nextLevel")
         let tryAgainWindow = document.getElementsByClassName("try-again-window")[0]
@@ -40,7 +41,7 @@ document.onreadystatechange = function () {
             if (currentLevel != 3)
                 location.replace("level-1.html?" + ++currentLevel)
             else {
-                
+
             }
         }
 
@@ -86,6 +87,7 @@ document.onreadystatechange = function () {
 
 
         canvas.addEventListener("mousedown", function (event) {
+            sounds.clickSound.play()
             myLevel.getActiveBird().grabBird(event)
         })
 
@@ -94,6 +96,7 @@ document.onreadystatechange = function () {
         })
 
         canvas.addEventListener("mouseup", function () {
+            sounds.firedSound.play()
             myLevel.getActiveBird().fire(canvas, wind_resistance, g, myLevel.pigs, myLevel.obstacles)
         })
 
@@ -108,10 +111,12 @@ document.onreadystatechange = function () {
                 // console.log("top", myLevel.birds.length);
 
                 if (myLevel.isEnded()) {
-                    if (myLevel.checkIfWin())
+                    if (myLevel.checkIfWin()) {
                         winWindow.style.display = "block"
-                    else {
+                        sounds.winSound.play()
+                    } else {
                         tryAgainWindow.style.display = "block"
+                        sounds.failedSound.play()
                     }
                 }
 
