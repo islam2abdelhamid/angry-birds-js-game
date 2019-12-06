@@ -74,7 +74,7 @@ level.prototype.check_win=function(currentBird,canvas){
             }
         }
 
-        if (l1.countPigs(pigs) && birds.length == 0) {
+        if (level_1.countPigs(pigs) && birds.length == 0) {
             alert("you lose")
             clearInterval(checkWin)
         }
@@ -192,12 +192,37 @@ let level_2=new level(5,3);//four birds and four pigs
 let level_3=new level(6,6);//six birds and six pigs
 
 // start the game based on level choosen by the user
+let back=document.getElementsByClassName("back")[0];
 
-let levels=location.search.substring(1);
-alert(levels);
-if (parseInt(levels)==1)
+let next=document.getElementsByClassName("next_level")[0];
+
+let levels=parseInt(location.search.substring(1));
+
+back.addEventListener('click',function () {
+    window.location = "file:///"+String(window.location.pathname).split("level-1.html")[0]+"select_level.html";;
+});
+
+
+next.addEventListener('click',function () {
+    levels++;
+    let path="";
+    if(levels==4){
+        alert("thie is the last level\nchoose the level again...");
+        path ="file:///"+String(window.location.pathname).split("level-1.html")[0]+"select_level.html";
+        window.location=path;
+    }
+    else{
+        levels=String(levels);
+        let path ="file:///"+String(window.location.pathname).split("?")[0]+"?"+levels;
+        window.location = path;
+    }
+    
+});
+
+
+if (levels==1)
     level_1.play();
-else if(parseInt(levels)==2)
+else if(levels==2)
     level_2.play();
 else 
     level_3.play();
