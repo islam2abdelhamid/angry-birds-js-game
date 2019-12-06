@@ -28,3 +28,85 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
 }
+
+
+.try-again-window {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 55555555;
+    top: 0;
+    left: 0;
+    text-align: center;
+    display: none
+}
+
+.try-again-window div.inner-window {
+    background: url("../media/imgs/objects/pigs/pig_win.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    margin: 50px auto;
+    border: 5px solid #fff;
+    border-radius: 50px;
+    width: 400px;
+    height: 450px;
+    background-color: #0b0b0b57;
+    background-position: center;
+    position: relative;
+}
+
+.try-again-window .text {
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    border-radius: 50px;
+    background: #cacaca40;
+}
+
+.win-window {
+    display: none;
+    background-size: contain;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 55555555;
+    top: 0;
+    left: 0;
+    text-align: center;
+}
+
+
+.win-window div.inner-window {
+
+    background: url("../media/imgs/objects/birds/200w_d.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    margin: 50px auto;
+    border: 5px solid #fff;
+    border-radius: 50px;
+    width: 400px;
+    height: 450px;
+    background-color: #0b0b0b57;
+    position: relative;
+}
+
+.win-window .text {
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    border-radius: 50px;
+    background: #cacaca40;
+}
+
+button {
+    cursor: pointer;
+    width: 160px;
+    padding: 10px;
+    background-color: #ffb72e;
+    border: 2px solid #fff;
+    border-radius: 51px;
+    color: #fff;
+    font-size: 24px;
+}

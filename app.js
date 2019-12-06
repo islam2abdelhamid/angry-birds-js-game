@@ -27,8 +27,26 @@ document.onreadystatechange = function () {
         canvas.width = window.innerWidth
         canvas.height = window.innerHeight - 93
 
+        let tryAgainBtn = document.getElementById("tryAgain")
+        let nextLevelBtn = document.getElementById("nextLevel")
+        let tryAgainWindow = document.getElementsByClassName("try-again-window")[0]
+        let winWindow = document.getElementsByClassName("win-window")[0]
+        let currentLevel = parseInt(location.search.substring(1)) ? parseInt(location.search.substring(1)) : 1;
+
+        tryAgainBtn.onclick = function () {
+            location.replace("level-1.html?" + currentLevel)
+        }
+        nextLevelBtn.onclick = function () {
+            if (currentLevel != 3)
+                location.replace("level-1.html?" + ++currentLevel)
+            else {
+                
+            }
+        }
+
+
+
         let gameArea = canvas.getContext('2d')
-        let myLevel = new Level(1)
 
         let birds_obj = {
             "bird1": new Bird(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/birds/red.png"),
@@ -62,38 +80,45 @@ document.onreadystatechange = function () {
             "obstcale8": new Obstacle(gameArea, 600, 300, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
         }
 
-        myLevel.initLevelComponents(birds_obj, pigs_obj, obstacles_obj)
 
-        myLevel.drawLevelComponents()
+
+        updateGameArea()
 
 
         canvas.addEventListener("mousedown", function (event) {
             myLevel.getActiveBird().grabBird(event)
         })
+
         canvas.addEventListener("mousemove", function (event) {
             myLevel.getActiveBird().setBirdSpeed(event)
         })
+
         canvas.addEventListener("mouseup", function () {
             myLevel.getActiveBird().fire(canvas, wind_resistance, g, myLevel.pigs, myLevel.obstacles)
         })
 
 
+        var myLevel = new Level(currentLevel, birds_obj, pigs_obj, obstacles_obj)
 
 
-        let updateGameArea = setInterval(() => {
-            gameArea.clearRect(0, 0, innerWidth, innerHeight)
-            myLevel.drawLevelComponents()
-            if (!myLevel.birds.length) {
-                clearInterval(updateGameArea);
-                if (myLevel.checkIfWin())
-                    alert("you win")
-                else
-                    alert("you loose")
-            }
+        function updateGameArea() {
+            let clearIfEnded = setInterval(function () {
+                gameArea.clearRect(0, 0, innerWidth, innerHeight)
+                myLevel.drawLevelComponents()
+                // console.log("top", myLevel.birds.length);
 
-        }, 13)
+                if (myLevel.isEnded()) {
+                    if (myLevel.checkIfWin())
+                        winWindow.style.display = "block"
+                    else {
+                        tryAgainWindow.style.display = "block"
+                    }
+                }
 
-     
+            }, 13)
+        }
+
+
 
 
     }

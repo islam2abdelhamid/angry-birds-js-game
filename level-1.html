@@ -13,7 +13,25 @@
 
     <div id="app">
         <canvas id="GameArea"></canvas>
-        <div id="ground"></div>
+        <div class="try-again-window">
+            <div class="inner-window">
+                <div class="text">
+                    <h1>HaHaHaHa! Pigs Win</h1>
+                    <button id="tryAgain">Try Again</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="win-window">
+            <div class="inner-window">
+                <div class="text">
+                    <h1>Birds Win as Usual</h1>
+                    <button id="nextLevel">Next Level</button>
+                </div>
+            </div>
+        </div>
+        <div id="ground">
+        </div>
     </div>
     <div id="scripts"></div>
     <script src="app.js"></script>
