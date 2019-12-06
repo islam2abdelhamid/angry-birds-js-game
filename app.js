@@ -12,8 +12,15 @@ importJsFile("assets/js/Obstacle.js")
 
 let g = .15, //Gravity
     wind_resistance = .0001
+////////////////
+var sounds={
+    onClickSound:new Audio('assets/media/sounds/Sound Effects - bird 01 flying.mp3'),
+    collisionSound:new Audio('asstes/media/sounds/Sound Effects - bird 01 collision a2_low.mp3'),
+    flyingSound:new Audio('asstes/media/sounds/Sound Effects - bird 01 flying.mp3'),
+    lostSound:new Audio('assets/media/sounds/Sound Effects - level failed piglets a2.mp3')
 
-
+//////////////
+}
 document.onreadystatechange = function () {
     if (document.readyState === 'complete') {
         let canvas = document.getElementById("GameArea")
@@ -102,8 +109,9 @@ document.onreadystatechange = function () {
             drawEnemies()
 
             if (countPigs(pigs) && !birds.length) {
-                alert("you loose")
+                alert("you lose")
                 clearInterval(checkWin)
+
             }
             if (birds[currentBird].ended && birds.length) {
                 birds.splice(currentBird, 1)
@@ -137,12 +145,7 @@ document.onreadystatechange = function () {
                         birds[currentBird].activeBird = true
                     }
                 }
-
             }
-
-
         }
-
-
     }
 };
