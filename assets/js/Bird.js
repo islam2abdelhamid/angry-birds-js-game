@@ -49,7 +49,7 @@ Bird.prototype.fire = function (canvas, windResistance, g, pigs, obstacles) {
         if (this.isFired && !this.isGrabbed) {
             this.velX = (this.defX - this.x) / 10
             this.velY = (this.defY - this.y) / 10
-            this.isFlying = this.velX > 0
+            this.isFlying = this.velX >= 0
             setInterval(() => {
                 this.x += this.velX;
                 if (this.x < 0)
@@ -61,10 +61,10 @@ Bird.prototype.fire = function (canvas, windResistance, g, pigs, obstacles) {
 
                 if (this.y > canvas.height - this.height) {
                     this.y = canvas.height - this.height
-                    this.velX -= .1 * (this.isFlying ? 1 : -1)
+                    this.velX -= .1 * (!this.isFlying ? -1 : 1)
                 }
 
-                this.velX -= windResistance * (this.isFlying ? 1 : -1)
+                this.velX -= windResistance * (!this.isFlying ? -1 : 1)
 
                 if (this.isFlying) {
                     if (this.velX < 0)
@@ -76,7 +76,6 @@ Bird.prototype.fire = function (canvas, windResistance, g, pigs, obstacles) {
                 this.velY += g
 
                 this.goThroughEnemies(pigs, obstacles)
-                this.ended = this.checkIfEnded(canvas)
             }, 12)
         }
     }
@@ -91,7 +90,7 @@ Bird.prototype.goThroughEnemies = function (pigs, obstacles) {
             }
 
         } else if (this.checkIfTouched(obstacles[i]))
-            this.velX = -4*this.velX
+            this.velX = 0
 
     }
 }
@@ -102,7 +101,7 @@ Bird.prototype.checkIfTouched = function (enemy) {
 
 Bird.prototype.checkIfEnded = function (canvas) {
 
-    if (this.isFired && this.velX == 0 && this.y == canvas.height - this.height)
+    if (this.isFired && this.velX == 0 && this.y >= canvas.height - this.height)
         return true
     return false
 }
