@@ -1,0 +1,42 @@
+
+body {
+    padding: 0;
+    margin: 0;
+    background-image: url("../media/imgs/backgrounds/back_img3.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: AngryFont;
+    overflow: hidden;
+}
+#int{
+  text-align: center;
+  width: 30%;
+  height: 200px;
+  margin: auto;
+  margin-top: 5%;
+  text-align: center;
+ 	color: blue;
+ 	font-size:20px ;
+ }
+.help{
+  margin-left: 15%;
+	margin-bottom: 0%;
+	font-size: 20px;
+	text-align: left;
+}
+@font-face {
+    font-family: AngryFont;
+    src: url(fonts/angrybirds-regular.ttf);
+}
+.buttons {
+	display: inline-block;
+	text-align: center;
+	position: absolute;
+	left: 1%;
+	top: 1%;
+	background-color: crimson;
+	width: 65px;
+	border-radius: 50px;
+	transition: all 0.2s;
+	cursor: pointer;
+}
