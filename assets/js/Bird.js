@@ -10,6 +10,8 @@ function Bird(gameArea, x, y, height, width, src) {
     this.defY = y
     this.activeBird = false
     this.hunt = false
+    this.clickSound = new Audio('assets/media/sounds/select.mp3')
+    this.firedSound = new Audio('assets/media/sounds/fire.mp3')
 }
 
 Bird.prototype = Object.create(Component.prototype);
@@ -17,10 +19,7 @@ Bird.prototype.constructor = Bird;
 
 Bird.prototype.grabBird = function (mouseEvent) {
     if (this.isIntersect(mouseEvent) && !this.isFired && this.activeBird) {
-<<<<<<< HEAD
-        // sounds.onClickSound.play();
-=======
->>>>>>> 0a081b1096d39a1981679316e2b8aa282e1b9838
+        this.clickSound.play()
         this.isGrabbed = true
         this.x = mouseEvent.clientX - (this.width / 1.5)
         this.y = mouseEvent.clientY - (this.height / 1.5)
@@ -51,10 +50,7 @@ Bird.prototype.fire = function (canvas, windResistance, g, pigs, obstacles) {
         this.isFired = true
 
         if (this.isFired && !this.isGrabbed) {
-<<<<<<< HEAD
-            // sounds.flyingSound.play();
-=======
->>>>>>> 0a081b1096d39a1981679316e2b8aa282e1b9838
+            this.firedSound.play()
             this.velX = (this.defX - this.x) / 10
             this.velY = (this.defY - this.y) / 10
             this.isFlying = this.velX >= 0
@@ -99,7 +95,7 @@ Bird.prototype.goThroughEnemies = function (pigs, obstacles) {
             }
 
         } else if (this.checkIfTouched(obstacles[i]))
-            this.velX = -this.velX*4
+            this.velX = -this.velX * 4
 
     }
 }

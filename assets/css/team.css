@@ -1,0 +1,49 @@
+@font-face {
+	font-family: AssasinFont;
+	src: url(fonts/Assassin$.ttf);
+}
+
+body {
+	font-family: AssasinFont;
+	background-image: url("../media/imgs/backgrounds/teambg.jpg");
+	background-size: cover;
+	/* text-align: center; */
+	padding: 20px;
+	overflow: hidden;
+
+}
+
+.red {
+	color: #bd0606;
+}
+
+.overly {
+	background-color: #000;
+	background-color: #00000052;
+	width: 100%;
+	height: 100%;
+}
+
+.authornames {
+	color: #fff;
+	text-align: center;
+	margin: auto;
+	font-size: 25px;
+}
+
+.authornames {
+	list-style-type: none;
+}
+
+.buttons {
+	display: inline-block;
+	text-align: center;
+	position: absolute;
+	left: 1%;
+	top: 1%;
+	background-color: crimson;
+	width: 65px;
+	border-radius: 50px;
+	transition: all 0.2s;
+	cursor: pointer;
+}

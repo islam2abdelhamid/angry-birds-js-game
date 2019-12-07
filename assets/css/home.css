@@ -1,0 +1,188 @@
+canvas {
+    border: 1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+
+
+/* Home Page Styling.*/
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-image: url("../media/imgs/backgrounds/ilwyc78e.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+
+@font-face {
+    font-family: AngryFont;
+    src: url(fonts/angrybirds-regular.ttf);
+}
+
+@font-face {
+    font-family: AssasinFont;
+    src: url(fonts/Assassin$.ttf);
+}
+
+
+/* Loading styls.*/
+
+#layover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    margin: 0;
+    opacity: 0.4;
+}
+
+#loading {
+    width: 300px;
+    height: 50px;
+    position: relative;
+    top: 30em;
+    left: 31em;
+    border-radius: 50px;
+    overflow: hidden;
+    text-align: center;
+}
+
+#loading span {
+    color: white;
+    font-family: AngryFont;
+    background-color: transparent;
+    position: absolute;
+    left: 105px;
+    top: 5px;
+    z-index: 2;
+    text-shadow: 0px 0px 2px black;
+    font-size: 2em;
+    animation: ReverseFade 0.7s linear infinite alternate;
+}
+
+.loading-bar {
+    width: 0;
+    height: 50px;
+    position: absolute;
+    background: rgb(219, 68, 68);
+    z-index: 1;
+}
+
+#int {
+    position: absolute;
+    top: 18em;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-family: AngryFont;
+    text-align: center;
+}
+
+#int h1 {
+    font-size: 6em;
+}
+
+#int h2 {
+    font-family: AssasinFont;
+    font-size: 3em;
+}
+
+#int h2 span {
+    color: #e82c2c;
+}
+
+/* Loading styls.*/
+
+
+/*Controls Styles*/
+.fadein {
+    animation: FadeIn 1s ease-in-out forwards;
+}
+
+div#controls {
+    width: 355px;
+    opacity: 0;
+    display: none;
+    margin: 250px auto;
+}
+
+ul {
+    list-style: none;
+}
+
+ul a {
+    display: block;
+}
+
+ul li {
+    display: inline-block;
+    margin: 5px 25px;
+    background: crimson;
+    width: 300px;
+    text-align: center;
+    border-radius: 50px;
+    padding: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-size: 2em;
+    font-size: 2em;
+    text-shadow: 0px 0px 2px black;
+}
+
+li:hover {
+    text-decoration: underline;
+}
+
+
+@-webkit-keyframes FadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes FadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@-webkit-keyframes ReverseFade {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes ReverseFade {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+/*Controls Styles*/
+
+
+/*Home Page Styling*/

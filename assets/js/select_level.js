@@ -1,19 +1,9 @@
-let level1_link=document.getElementById("link1");
-let level2_link=document.getElementById("link2");
-let level3_link=document.getElementById("link3");
+let back = document.getElementsByClassName("back")[0];
 
-function choose_level(){
-    level1_link.onclick=function () {
-        let levels=location.search.substring(1);
-        
-    }
-    level2_link.onclick=function () {
-        sessionStorage.setItem("level", 2);
-    }
-    level3_link.onclick=function () {
-        sessionStorage.setItem("level", 3);
-    }
+back.onclick = function () {
+    location.replace("home.html")
 }
+
 
 
 //choose_level();

@@ -1,29 +1,15 @@
-function importJsFile(path) {
-    let imported = document.createElement('script');
-    imported.src = path;
-    document.getElementById("scripts").appendChild(imported);
-}
 
-importJsFile("assets/js/Level.js")
-importJsFile("assets/js/Component.js")
-importJsFile("assets/js/Bird.js")
-importJsFile("assets/js/Pig.js")
-importJsFile("assets/js/Obstacle.js")
 
 
 let g = .15, //Gravity
     wind_resistance = .0001
 var sounds = {
     startSound: new Audio('assets/media/sounds/start.mp3'),
-    clickSound: new Audio('assets/media/sounds/select.mp3'),
-    firedSound: new Audio('assets/media/sounds/fire.mp3'),
     failedSound: new Audio('assets/media/sounds/failed.mp3'),
     winSound: new Audio('assets/media/sounds/win.mp3'),
 
 }
 
-document.onreadystatechange = function () {
-    if (document.readyState === 'complete') {
         let canvas = document.getElementById("GameArea")
         canvas.width = window.innerWidth
         canvas.height = window.innerHeight - 93
@@ -44,6 +30,14 @@ document.onreadystatechange = function () {
 
             }
         }
+
+        let back = document.getElementsByClassName("back")[0];
+
+
+
+        back.addEventListener('click', function () {
+            location.replace("select_level.html")
+        });
 
 
 
@@ -87,7 +81,6 @@ document.onreadystatechange = function () {
 
 
         canvas.addEventListener("mousedown", function (event) {
-            sounds.clickSound.play()
             myLevel.getActiveBird().grabBird(event)
         })
 
@@ -96,7 +89,6 @@ document.onreadystatechange = function () {
         })
 
         canvas.addEventListener("mouseup", function () {
-            sounds.firedSound.play()
             myLevel.getActiveBird().fire(canvas, wind_resistance, g, myLevel.pigs, myLevel.obstacles)
         })
 
@@ -126,5 +118,3 @@ document.onreadystatechange = function () {
 
 
 
-    }
-};
