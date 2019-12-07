@@ -35,7 +35,7 @@ body {
 	list-style-type: none;
 }
 
-.buttons {
+.back {
 	display: inline-block;
 	text-align: center;
 	position: absolute;
@@ -46,4 +46,14 @@ body {
 	border-radius: 50px;
 	transition: all 0.2s;
 	cursor: pointer;
+}
+
+.back:hover {
+	transform: scaleY(1.5);
+	cursor: pointer;
+}
+
+h2:hover{
+	color: #bd0606;
+	font-size: 40px;
 }

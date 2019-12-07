@@ -34,6 +34,10 @@ setTimeout(function () {
     controls.style.display = "block";
     controls.classList.add("fadein");
     introSound.play()
+    introSound.addEventListener('ended', function () {
+        this.currentTime = 0;
+        this.play();
+    }, false);
 }, 5000);
 
 

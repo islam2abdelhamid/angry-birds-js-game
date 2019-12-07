@@ -10,14 +10,6 @@ canvas {
     margin: 0;
 }
 
-body {
-    background-image: url("../media/imgs/backgrounds/ilwyc78e.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    overflow: hidden;
-}
-
-
 @font-face {
     font-family: AngryFont;
     src: url(fonts/angrybirds-regular.ttf);
@@ -27,6 +19,17 @@ body {
     font-family: AssasinFont;
     src: url(fonts/Assassin$.ttf);
 }
+
+
+body {
+    background-image: url("../media/imgs/backgrounds/ilwyc78e.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    font-family: AngryFont;
+}
+
+
 
 
 /* Loading styls.*/
