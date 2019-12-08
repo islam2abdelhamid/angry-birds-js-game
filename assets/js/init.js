@@ -36,3 +36,5 @@ let
         failedSound: new Audio('assets/media/sounds/failed.mp3'),
         winSound: new Audio('assets/media/sounds/win.mp3'),
     }
+
+document.getElementsByTagName("title")[0].innerText = "Angry Birds - Level " + currentLevel

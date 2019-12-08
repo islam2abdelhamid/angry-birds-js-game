@@ -7,9 +7,9 @@ function Pig(gameArea, x, y, height, width, src) {
 
 }
 
-Pig.prototype = Object.create(Component.prototype);
-Pig.prototype.constructor = Pig;
+Pig.prototype = Object.create(Component.prototype)
 
+Pig.prototype.constructor = Pig
 
 Pig.prototype.die = function () {
 	this.dieSound.play()

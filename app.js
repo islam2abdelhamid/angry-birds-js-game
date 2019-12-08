@@ -1,9 +1,5 @@
 let myLevel = new Level(currentLevel, birds_obj, pigs_obj, obstacles_obj)
 
-document.getElementsByTagName("title")[0].innerText = "Angry Birds - Level " + currentLevel
-
-
-
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight - 93
 sounds.startSound.play()
@@ -39,8 +35,6 @@ canvas.addEventListener("mouseup", function () {
     myLevel.getActiveBird().fire(canvas, wind_resistance, g, myLevel.pigs, myLevel.obstacles)
 })
 
-
-
 function updateGameArea() {
     let clearIfEnded = setInterval(function () {
         gameArea.clearRect(0, 0, innerWidth, innerHeight)
@@ -51,9 +45,20 @@ function updateGameArea() {
             if (myLevel.checkIfWin()) {
                 winWindow.style.display = "block"
                 sounds.winSound.play()
+
+                sounds.winSound.addEventListener("ended", function () {
+                    this.currentTime = 0
+                    this.play()
+                }, false)
+
             } else {
                 tryAgainWindow.style.display = "block"
                 sounds.failedSound.play()
+
+                sounds.failedSound.addEventListener("ended", function () {
+                    this.currentTime = 0
+                    this.play()
+                }, false)
             }
         }
 
