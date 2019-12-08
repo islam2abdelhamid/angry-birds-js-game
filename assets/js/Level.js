@@ -31,9 +31,8 @@ let Level = function (level_num, birds, pigs, obstacles) {
 
 Level.prototype.initLevelComponents = function (birds, pigs, obstacles) {
 
-    for (let i = 0; i < this.num_of_birds; i++) {
+    for (let i = 0; i < this.num_of_birds; i++)
         this.birds.push(birds[Object.keys(birds)[i]])
-    }
 
     for (let i = 0; i < this.num_of_pigs; i++) {
         this.pigs.push(pigs[Object.keys(pigs)[i]])
@@ -98,23 +97,7 @@ Level.prototype.isEnded = function () {
 }
 
 Level.prototype.checkIfWin = function () {
-    if (!this.birds.length && this.countPigs()) {
+    if (!this.birds.length && this.countPigs())
         return false
-    } else
-        return true
-}
-
-Level.prototype.restart = function (birds, pigs, obstacles) {
-    this.birds = []
-    this.pigs = []
-    this.obstacles = []
-    this.started = false
-    this.initLevelComponents(birds, pigs, obstacles)
-
-}
-
-Level.prototype.tryAgain = function (birds, pigs, obstacles) {
-
-    this.initLevelComponents(birds, pigs, obstacles)
-    this.drawLevelComponents()
+    return true
 }

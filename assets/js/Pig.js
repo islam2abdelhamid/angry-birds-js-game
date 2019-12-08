@@ -13,6 +13,8 @@ Pig.prototype.constructor = Pig;
 
 Pig.prototype.die = function () {
 	this.dieSound.play()
+	this.width+=10
+	this.height+=10
 	this.image.src = "assets/media/imgs/objects/pigs/pig_dead.png"
 	this.newY -= this.height
 	let self = this

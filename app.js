@@ -1,80 +1,31 @@
-let g = .15, //Gravity
-    wind_resistance = .0001
-var sounds = {
-    startSound: new Audio('assets/media/sounds/start.mp3'),
-    failedSound: new Audio('assets/media/sounds/failed.mp3'),
-    winSound: new Audio('assets/media/sounds/win.mp3'),
-}
+let myLevel = new Level(currentLevel, birds_obj, pigs_obj, obstacles_obj)
 
-let canvas = document.getElementById("GameArea")
+document.getElementsByTagName("title")[0].innerText = "Angry Birds - Level " + currentLevel
+
+
+
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight - 93
 sounds.startSound.play()
-let tryAgainBtn = document.getElementById("tryAgain")
-let nextLevelBtn = document.getElementById("nextLevel")
-let tryAgainWindow = document.getElementsByClassName("try-again-window")[0]
-let winWindow = document.getElementsByClassName("win-window")[0]
-let currentLevel = parseInt(location.search.substring(1)) ? parseInt(location.search.substring(1)) : 1;
 
 tryAgainBtn.onclick = function () {
-    location.replace("level-1.html?" + currentLevel)
+    location.replace("game.html?" + currentLevel)
 }
+
 nextLevelBtn.onclick = function () {
     if (currentLevel != 3)
-        location.replace("level-1.html?" + ++currentLevel)
+        location.replace("game.html?" + ++currentLevel)
     else {
-
+        location.replace("select_level.html")
     }
 }
-
-let back = document.getElementsByClassName("back")[0];
-
 
 
 back.addEventListener('click', function () {
     location.replace("select_level.html")
 });
 
-
-
-let gameArea = canvas.getContext('2d')
-
-let birds_obj = {
-    "bird1": new Bird(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/birds/red.png"),
-    "bird2": new Bird(gameArea, 120, 475, 70, 60, "assets/media/imgs/objects/birds/yellow.png"),
-    "bird3": new Bird(gameArea, 50, 490, 50, 50, "assets/media/imgs/objects/birds/red.png"),
-    "bird4": new Bird(gameArea, 90, 475, 70, 60, "assets/media/imgs/objects/birds/yellow.png"),
-    "bird5": new Bird(gameArea, 90, 450, 50, 50, "assets/media/imgs/objects/birds/red.png"),
-    "bird6": new Bird(gameArea, 100, 475, 70, 60, "assets/media/imgs/objects/birds/yellow.png"),
-    "bird7": new Bird(gameArea, 90, 470, 50, 50, "assets/media/imgs/objects/birds/red.png"),
-    "bird8": new Bird(gameArea, 90, 475, 70, 60, "assets/media/imgs/objects/birds/yellow.png"),
-}
-let pigs_obj = {
-    "pig1": new Pig(gameArea, 200, 300, 60, 60, "assets/media/imgs/objects/pigs/pig_female.png"),
-    "pig2": new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png"),
-    "pig3": new Pig(gameArea, 200, 300, 60, 60, "assets/media/imgs/objects/pigs/pig_king.png"),
-    "pig4": new Pig(gameArea, 200, 300, 60, 60, "assets/media/imgs/objects/pigs/pig_female.png"),
-    "pig5": new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png"),
-    "pig6": new Pig(gameArea, 200, 300, 60, 60, "assets/media/imgs/objects/pigs/pig_king.png"),
-    "pig7": new Pig(gameArea, 200, 300, 60, 60, "assets/media/imgs/objects/pigs/pig_female.png"),
-    "pig8": new Pig(gameArea, 200, 300, 50, 50, "assets/media/imgs/objects/pigs/pig.png"),
-}
-
-let obstacles_obj = {
-    "obstcale1": new Obstacle(gameArea, 800, 200, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
-    "obstcale2": new Obstacle(gameArea, 1200, 250, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
-    "obstcale3": new Obstacle(gameArea, 600, 300, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
-    "obstcale4": new Obstacle(gameArea, 500, 400, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
-    "obstcale5": new Obstacle(gameArea, 600, 100, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
-    "obstcale6": new Obstacle(gameArea, 850, 350, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
-    "obstcale7": new Obstacle(gameArea, 600, 300, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
-    "obstcale8": new Obstacle(gameArea, 600, 300, 50, 80, "assets/media/imgs/obstacles/brick_1.png"),
-}
-
-
-
 updateGameArea()
-
 
 canvas.addEventListener("mousedown", function (event) {
     myLevel.getActiveBird().grabBird(event)
@@ -89,16 +40,14 @@ canvas.addEventListener("mouseup", function () {
 })
 
 
-var myLevel = new Level(currentLevel, birds_obj, pigs_obj, obstacles_obj)
-
 
 function updateGameArea() {
     let clearIfEnded = setInterval(function () {
         gameArea.clearRect(0, 0, innerWidth, innerHeight)
         myLevel.drawLevelComponents()
-        // console.log("top", myLevel.birds.length);
 
         if (myLevel.isEnded()) {
+            clearInterval(clearIfEnded)
             if (myLevel.checkIfWin()) {
                 winWindow.style.display = "block"
                 sounds.winSound.play()
